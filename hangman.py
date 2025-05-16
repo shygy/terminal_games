@@ -221,19 +221,26 @@ def play_hangman():
 
         # Handle game end conditions
         if '_' in word_array and guess_count > max_guesses:
-            if input("\nOut of guesses! Would you like to keep guessing (y) or see the word (n)? ").lower() == 'y':
+            reveal_choice = input("\nOut of guesses! Would you like to keep guessing (y) or see the word (n)? ").lower()
+            if reveal_choice == 'y':
                 print("\nContinuing with infinite guesses...\n")
                 if play_infinite_guesses(word, word_array, letters_not_in_word):
-                    if input("\nPlay again? (y/n): ").lower() != 'y':
+                    play_again = input("\nPlay again? (y/n): ").lower()
+                    if play_again != 'y':
                         break
                     continue
-            print(f"\nThe word was {word.upper()}!")
-            break
+            else:
+                print(f"\nThe word was {word.upper()}!")
+                play_again = input("\nPlay again? (y/n): ").lower()
+                if play_again != 'y':
+                    break
+                continue # Continue to the next iteration of the outer while loop
+
         elif '_' not in word_array:
             print(f"\nYou won! The word was {word.upper()}! It took you {guess_count} guesses!")
-
-        if input("\nPlay again? (y/n): ").lower() != 'y':
-            break
+            play_again = input("\nPlay again? (y/n): ").lower()
+            if play_again != 'y':
+                break
 
 def hangmanLoop():
     """

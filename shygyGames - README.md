@@ -1,4 +1,4 @@
-# shygyGames - The Terminal Collection v1.4
+# shygyGames - The Terminal Collection v1.7
 
 A collection of classic terminal-based games written in Python.
 

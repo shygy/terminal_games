@@ -50,6 +50,8 @@ def display_header():
     print("\nGames include Higher or Lower, Rock Paper Scissors, Hangman, and Blackjack")
     print("with advanced betting options (split, double down, and insurance).")
     print("-" * 70)
+    # Small delay for better user experience
+    time.sleep(1)
 
 def check_environment():
     """
