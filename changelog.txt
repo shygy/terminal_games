@@ -1,6 +1,6 @@
-shygyGames - The Terminal Collection v.1.10 - 2025-05-16
+shygyGames - The Terminal Collection v.1.12 - 2025-05-16
 ----------------------------------------------------------------------------
-Added universal
+Added universal "quit" command so the user does not have to finish the game to quit from menu
 shygyGames - The Terminal Collection v.1.10 - 2025-05-16
 ----------------------------------------------------------------------------
 Updated README and changelog for better user experience
