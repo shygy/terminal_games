@@ -1,10 +1,10 @@
-# shygyGames - The Terminal Collection v1.0
+# shygyGames - The Terminal Collection v1.1
 
 A collection of classic terminal-based games written in Python.
 
 ## Games Included
 
-1. **Number Guessing Game** - Guess a number between 1 and 10.
+1. **Higher or Lower** - Guess a number between 1 and 10.
 2. **Rock Paper Scissors** - Play the classic game against the computer.
 3. **Hangman** - Guess the word before you run out of attempts.
 4. **Blackjack** - Try to beat the dealer without going over 21.
@@ -36,7 +36,7 @@ All games use simple keyboard input:
 
 ## Game Rules
 
-### Number Guessing Game
+### Higher or Lower
 - The computer picks a random number between 1 and 10
 - Try to guess the number in as few attempts as possible
 - The game will tell you if your guess is too high or too low
