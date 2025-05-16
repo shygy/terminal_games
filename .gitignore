@@ -1,0 +1,8 @@
+# .gitignore
+
+# Ignore the utils folder
+utils/
+
+# can also ignore specific files within utils if needed, for example:
+# utils/README.md
+# utils/etc
