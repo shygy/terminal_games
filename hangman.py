@@ -12,6 +12,7 @@ the pressure of limited attempts.
 """
 
 import random
+import time  # Moved import here
 
 # Import the wordlist from separate file
 from wordlist import wordlist
@@ -19,10 +20,10 @@ from wordlist import wordlist
 def select_difficulty():
     """
     Get difficulty selection from user.
-    
+
     This function presents difficulty options to the player and handles
     input validation to ensure a valid selection.
-    
+
     Returns:
         str: The selected difficulty level ('1', '2', '3', or 'debug')
              '1' = Easy, '2' = Medium, '3' = Hard
@@ -44,14 +45,14 @@ def select_difficulty():
 def get_max_guesses(difficulty, word_length):
     """
     Calculate maximum guesses based on difficulty.
-    
+
     Args:
         difficulty (str): The selected difficulty level ('1', '2', '3', or 'debug')
         word_length (int): The length of the word to be guessed
-        
+
     Returns:
         int: The maximum number of allowed guesses based on difficulty
-        
+
     Examples:
         >>> get_max_guesses('1', 8)
         26  # Easy mode is always 26 guesses
@@ -71,15 +72,15 @@ def get_max_guesses(difficulty, word_length):
 def display_game_state(word_array, letters_not_in_word, guesses_remaining=None):
     """
     Display current game state including the word, guessed letters, and guesses remaining.
-    
+
     Args:
         word_array (list): A list representing the current state of the word,
-                          with revealed letters and underscores for hidden letters
+                            with revealed letters and underscores for hidden letters
         letters_not_in_word (list): A list of letters that have been guessed
-                                   and are not in the word
+                                    and are not in the word
         guesses_remaining (int, optional): The number of guesses remaining.
-                                          If None, infinite guesses mode is active.
-    
+                                            If None, infinite guesses mode is active.
+
     Returns:
         None: This function only prints to the console
     """
@@ -92,20 +93,20 @@ def display_game_state(word_array, letters_not_in_word, guesses_remaining=None):
 def handle_letter_guess(guess, word, word_array, letters_not_in_word):
     """
     Process a single letter guess in the hangman game.
-    
+
     This function checks if a letter has been guessed before, and if not,
     updates the game state based on whether the letter is in the word.
-    
+
     Args:
         guess (str): The letter guessed by the player
         word (str): The target word to be guessed
         word_array (list): A list representing the current state of the word
         letters_not_in_word (list): A list of letters that have been guessed
-                                   and are not in the word
-    
+                                    and are not in the word
+
     Returns:
         bool: True if this was a new guess, False if the letter was already guessed
-    
+
     Side Effects:
         - Updates word_array in place if the guess is correct
         - Appends to letters_not_in_word if the guess is incorrect
@@ -134,19 +135,19 @@ def handle_letter_guess(guess, word, word_array, letters_not_in_word):
 def play_infinite_guesses(word, word_array, letters_not_in_word):
     """
     Handle infinite guesses mode when player chooses to continue after running out of guesses.
-    
+
     This function allows players to continue guessing until they completely reveal the word,
     without the restriction of limited attempts. It's offered as a "second chance" when
     a player is down to their last guess in normal mode.
-    
+
     Args:
         word (str): The target word to be guessed
         word_array (list): Current state of the word with revealed and hidden letters
         letters_not_in_word (list): Letters that have been guessed and are not in the word
-    
+
     Returns:
         None: This function runs until the word is completely guessed
-    
+
     Side Effects:
         - Updates word_array in place as correct guesses are made
         - Modifies letters_not_in_word list with incorrect guesses
@@ -160,6 +161,16 @@ def play_infinite_guesses(word, word_array, letters_not_in_word):
         if guess == word:
             print(f"\nYou won! The word was {word.upper()}! It took you {guess_count} guesses!")
             return True
+
+        if len(guess) > 1 and guess.isalpha():  # Check if it's a word guess
+            if guess != word:
+                print("Incorrect word guess!")
+                guess_count += 1
+                display_game_state(word_array, letters_not_in_word)
+                continue  # Go to the next turn
+            else:
+                print(f"\nYou won! The word was {word.upper()}! It took you {guess_count} guesses!")
+                break
 
         if len(guess) != 1:
             print("Please guess a single letter or the complete word!")
@@ -177,14 +188,14 @@ def play_infinite_guesses(word, word_array, letters_not_in_word):
 def play_hangman():
     """
     Main game loop for Hangman.
-    
+
     This function handles:
     - Setting up the game based on selected difficulty
     - Running the main guessing loop
     - Processing wins and losses
     - Handling the play again functionality
     - Offering infinite guesses mode when player is out of guesses
-    
+
     Returns:
         None: This function runs the game until the player chooses to quit
     """
@@ -194,33 +205,45 @@ def play_hangman():
         word = random.choice(wordlist)
         max_guesses = get_max_guesses(difficulty, len(word))
         word_array = ['_' for _ in word]
-        guess_count = 1
+        guess_count = 0  # Initialize guess_count to 0
         letters_not_in_word = []
 
         # Main game loop
-        display_game_state(word_array, letters_not_in_word, max_guesses - guess_count + 1)
+        display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
 
-        while '_' in word_array and guess_count <= max_guesses:
-            guess = input(f"Guess {guess_count}: ").lower()
+        while '_' in word_array and guess_count < max_guesses:
+            guess = input(f"Guess {guess_count + 1}: ").lower()
 
             if guess == word:
-                print(f"\nYou won! The word was {word.upper()}. It took you {guess_count} guesses.")
+                print(f"\nYou won! The word was {word.upper()}. It took you {guess_count + 1} guesses.")
                 break
+
+            if len(guess) > 1 and guess.isalpha():  # Check if it's a word guess
+                if guess != word:
+                    print("Incorrect word guess!")
+                    guess_count += 1
+                    display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
+                    continue  # Go to the next turn
+                else:
+                    print(f"\nYou won! The word was {word.upper()}. It took you {guess_count + 1} guesses.")
+                    break
 
             if len(guess) != 1:
                 print("Please guess a single letter or the complete word")
                 continue
-                
+
             if not guess.isalpha():
                 print("Please enter a letter")
                 continue
 
             if handle_letter_guess(guess, word, word_array, letters_not_in_word):
-                display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
                 guess_count += 1
+                display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
+            else:
+                display_game_state(word_array, letters_not_in_word, max_guesses - guess_count) # Still display even if it was a repeat guess
 
         # Handle game end conditions
-        if '_' in word_array and guess_count > max_guesses:
+        if '_' in word_array and guess_count >= max_guesses:
             reveal_choice = input("\nOut of guesses! Would you like to keep guessing (y) or see the word (n)? ").lower()
             if reveal_choice == 'y':
                 print("\nContinuing with infinite guesses...\n")
@@ -234,10 +257,14 @@ def play_hangman():
                 play_again = input("\nPlay again? (y/n): ").lower()
                 if play_again != 'y':
                     break
-                continue # Continue to the next iteration of the outer while loop
+                continue
 
         elif '_' not in word_array:
-            print(f"\nYou won! The word was {word.upper()}! It took you {guess_count} guesses!")
+            play_again = input("\nPlay again? (y/n): ").lower()
+            if play_again != 'y':
+                break
+
+        else: # This condition is added to handle the case where the loop breaks due to a correct word guess
             play_again = input("\nPlay again? (y/n): ").lower()
             if play_again != 'y':
                 break
@@ -245,12 +272,12 @@ def play_hangman():
 def hangmanLoop():
     """
     Entry point for the Hangman game.
-    
+
     This function serves as the main entry point when the game is selected
     from the game selector menu or run directly. It provides a clean interface
     for external modules to start the game without worrying about implementation
     details.
-    
+
     Returns:
         None: This function doesn't return a value, but starts the Hangman game
     """
@@ -265,11 +292,10 @@ def hangmanLoop():
         print("- Option to guess the entire word at once")
         print("- Infinite guesses mode when you're down to your last guess")
         print("\nGood luck!\n")
-        
+
         # Small delay for better user experience
-        import time
         time.sleep(1)
-        
+
         # Start the main game
         play_hangman()
     except KeyboardInterrupt:
