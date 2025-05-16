@@ -1,0 +1,41 @@
+shygyGames - The Terminal Collection v.1.5 - 2025-05-16
+----------------------------------------------------------------------------
+Added changelog feature to track version history
+==========================================
+shygyGames - The Terminal Collection v.1.4 - 2025-05-15
+----------------------------------------------------------------------------
+Updated file structure and error handling improvements
+- Updated README to reflect actual file structure
+- Added improved error handling for game inputs
+- Enhanced Blackjack with better betting logic
+- Created a cleaner game startup experience
+- Fixed various minor bugs
+==========================================
+shygyGames - The Terminal Collection v.1.3 - 2025-05-15
+----------------------------------------------------------------------------
+Documentation and error handling enhancements
+- Added proper documentation for all game functions
+- Fixed import errors in the game selector
+- Improved error messages across all games
+- Enhanced startup scripts for Windows and Unix
+==========================================
+shygyGames - The Terminal Collection v.1.2 - 2025-05-15
+----------------------------------------------------------------------------
+Game mechanics and input handling fixes
+- Fixed Blackjack betting and payout logic
+- Added better error handling for invalid inputs
+- Updated game selector with improved navigation
+==========================================
+shygyGames - The Terminal Collection v.1.1 - 2025-05-15
+----------------------------------------------------------------------------
+Advanced features and bug fixes
+- Added Blackjack advanced features (split, double down, insurance)
+- Fixed bug in Hangman infinite guesses mode
+- Improved terminal clearing for better compatibility
+==========================================
+shygyGames - The Terminal Collection v.1.0 - 2025-05-15
+----------------------------------------------------------------------------
+Initial release
+- Includes Higher or Lower, Rock Paper Scissors, Hangman, and Blackjack
+- Launcher script and game selector menu
+- Windows and Unix startup scripts
