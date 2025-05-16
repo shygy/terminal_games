@@ -1,4 +1,4 @@
-# shygyGames - The Terminal Collection v1.1
+# shygyGames - The Terminal Collection v1.4
 
 A collection of classic terminal-based games written in Python.
 
@@ -74,14 +74,13 @@ All games use simple keyboard input:
 ```
 terminal_games/
 ├── launch_games.py - Main launcher script
-├── README.md - This file
+├── shygyGames - README.md - This file
 ├── start_games.bat - Windows launcher script
 ├── start_games.sh - Unix launcher script
-└── games/
-    ├── game_selector.py - Game selection menu
-    ├── blackJack.py - Blackjack game
-    ├── hangman.py - Hangman game
-    ├── wordlist.py - Word list for Hangman game
-    ├── highOrLow.py - Number guessing game
-    └── rpsBasic.py - Rock Paper Scissors game
+├── game_selector.py - Game selection menu
+├── blackJack.py - Blackjack game
+├── hangman.py - Hangman game
+├── wordlist.py - Word list for Hangman game
+├── highOrLow.py - Number guessing game
+└── rpsBasic.py - Rock Paper Scissors game
 ```
