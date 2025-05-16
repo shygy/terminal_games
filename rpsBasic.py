@@ -1,4 +1,3 @@
-
 """
 Rock Paper Scissors Game Module
 
@@ -35,6 +34,23 @@ def rps(user, comp):
     else:
         return "Invalid input. Please enter R, P, or S (case insensitive)."
 
+def confirm_quit():
+    """
+    Asks the user to confirm if they want to quit the game.
+    
+    Returns:
+        bool: True if the user confirms quitting, False otherwise
+    """
+    while True:
+        confirm = input("Confirm quit? (y/n): ").lower()
+        if confirm in ['y', 'yes']:
+            print("\nThanks for playing shygyGames! Goodbye!")
+            return True
+        elif confirm in ['n', 'no']:
+            return False
+        else:
+            print("Please enter 'y' or 'n'.")
+
 def play_rps():
     """
     Run the Rock Paper Scissors game in interactive mode.
@@ -54,6 +70,14 @@ def play_rps():
         # Get player choice with improved error handling
         while True:
             userRPS = input("Choose: Rock (R), Paper (P), or Scissors (S): ").lower()
+            
+            # Check if the user wants to quit
+            if userRPS in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return
+                else:
+                    continue
+                    
             if userRPS in ['r', 'p', 's'] or userRPS in ['rock', 'paper', 'scissors']:
                 # Convert full word inputs to single letter
                 if userRPS == 'rock': userRPS = 'r'
@@ -77,6 +101,14 @@ def play_rps():
         # Ask to play again with improved error handling
         while True:
             play_again = input("Play again? (y/n): ").lower()
+            
+            # Check if the user wants to quit
+            if play_again in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return
+                else:
+                    continue
+                    
             if play_again in ['y', 'n', 'yes', 'no']:
                 break
             else:

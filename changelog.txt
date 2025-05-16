@@ -1,3 +1,10 @@
+shygyGames - The Terminal Collection v.1.10 - 2025-05-16
+----------------------------------------------------------------------------
+Added universal
+shygyGames - The Terminal Collection v.1.10 - 2025-05-16
+----------------------------------------------------------------------------
+Updated README and changelog for better user experience
+==========================================
 shygyGames - The Terminal Collection v.1.5 - 2025-05-16
 ----------------------------------------------------------------------------
 Added changelog feature to track version history

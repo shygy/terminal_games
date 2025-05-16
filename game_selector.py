@@ -65,7 +65,14 @@ def main():
         # Get user choice with input validation
         while True:
             try:
-                choice = input("Select a game (1-5): ")
+                choice = input("Select a game (1-5) or type 'quit' to exit: ")
+                
+                # Check if user wants to quit
+                if choice.lower() in ['quit', 'q', 'exit']:
+                    print("Thanks for playing shygyGames! Goodbye!")
+                    time.sleep(1)
+                    sys.exit(0)
+                    
                 if choice in ['1', '2', '3', '4', '5']:
                     break
                 else:

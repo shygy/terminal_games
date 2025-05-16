@@ -146,6 +146,23 @@ def is_blackjack(hand):
     """
     return len(hand) == 2 and calculate_hand_value(hand) == 21
 
+def confirm_quit():
+    """
+    Asks the user to confirm if they want to quit the game.
+    
+    Returns:
+        bool: True if the user confirms quitting, False otherwise
+    """
+    while True:
+        confirm = input("Confirm quit? (y/n): ").lower()
+        if confirm in ['y', 'yes']:
+            print("\nThanks for playing shygyGames! Goodbye!")
+            return True
+        elif confirm in ['n', 'no']:
+            return False
+        else:
+            print("Please enter 'y' or 'n'.")
+
 def get_valid_bet(rocks):
     """
     Get a valid bet amount from the player.
@@ -159,12 +176,21 @@ def get_valid_bet(rocks):
         rocks (int): The player's current rock balance
         
     Returns:
-        int: A valid bet amount
+        int: A valid bet amount or -1 if the player wants to quit
     """
     while True:
         try:
             print(f"You have {rocks} Rocks.")
-            bet = int(input("How much would you like to bet? "))
+            bet_input = input("How much would you like to bet? ")
+            
+            # Check if player wants to quit
+            if bet_input.lower() in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return -1  # Signal to quit the game
+                else:
+                    continue
+                    
+            bet = int(bet_input)
             if bet <= 0:
                 print("Please enter a positive bet amount.")
             elif bet > rocks:
@@ -187,13 +213,15 @@ def play_blackjack_round(deck, rocks):
     - Allowing player to split matching pairs
     - Handling double down on initial two cards
     - Implementing standard Blackjack rules for dealer and outcome determination
+    - Handling player quitting the game at any point
     
     Args:
         deck (list): The current deck of cards
         rocks (int): The player's current rock balance for betting
         
     Returns:
-        int: The updated rock balance after the round is complete
+        int: The updated rock balance after the round is complete,
+             or None if the player decides to quit
         
     Note:
         This function modifies the deck in-place. The deck will be
@@ -207,6 +235,10 @@ def play_blackjack_round(deck, rocks):
     
     # Use the separate betting function to get a valid bet
     bet = get_valid_bet(rocks)
+    
+    # Check if player wants to quit
+    if bet == -1:
+        return None  # Signal to quit the game
     
     # Initial deal
     # deal_card now handles reshuffling if needed
@@ -230,6 +262,14 @@ def play_blackjack_round(deck, rocks):
         print(f"Insurance costs {bet // 2} Rocks (half your bet).")
         while True:
             insurance_choice = input("Take insurance? (y/n): ").lower()
+            
+            # Check if player wants to quit
+            if insurance_choice in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return None  # Signal to quit the game
+                else:
+                    continue
+                    
             if insurance_choice == 'y':
                 insurance_bet = bet // 2
                 rocks -= insurance_bet
@@ -286,6 +326,14 @@ def play_blackjack_round(deck, rocks):
         
         while True:
             split_choice = input("Split your hand? (y/n): ").lower()
+            
+            # Check if player wants to quit
+            if split_choice in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return None  # Signal to quit the game
+                else:
+                    continue
+                    
             if split_choice == 'y':
                 # Create two hands from the pair
                 second_card = player_hand.pop()
@@ -312,7 +360,13 @@ def play_blackjack_round(deck, rocks):
                             break
                         
                         choice = input("Hit or Stand? (h/s): ").lower()
-                        if choice == 'h':
+                        if choice in ['quit', 'q', 'exit']:
+                            if confirm_quit():
+                                return None  # Signal to quit the game
+                            else:
+                                # Continue playing without taking an action
+                                continue
+                        elif choice == 'h':
                             player_hand.append(deal_card(deck, lambda: create_deck(NUM_DECKS)))
                             print(f"Hand: {player_hand}, value: {calculate_hand_value(player_hand)}")
                         elif choice == 's':
@@ -378,6 +432,14 @@ def play_blackjack_round(deck, rocks):
         # On first decision, offer double down if possible
         if len(player_hand) == 2 and can_double_down:
             choice = input("Hit, Stand, or Double Down? (h/s/d): ").lower()
+            
+            # Check if player wants to quit
+            if choice in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return None  # Signal to quit the game
+                else:
+                    continue
+                    
             if choice == 'd':
                 print(f"Doubling down! Additional bet: {bet} Rocks")
                 rocks -= bet  # Double the bet
@@ -395,6 +457,13 @@ def play_blackjack_round(deck, rocks):
                 break  # Proceed to dealer's turn
         else:
             choice = input("Hit or Stand? (h/s): ").lower()
+            
+            # Check if player wants to quit
+            if choice in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return None  # Signal to quit the game
+                else:
+                    continue
             
         if choice == 'h':
             player_hand.append(deal_card(deck, lambda: create_deck(NUM_DECKS)))
@@ -474,12 +543,27 @@ def mainBlackjack():
             rocks = 50
 
         # Pass the current_deck to the round function
-        # The round function now returns the updated rocks amount
-        rocks = play_blackjack_round(current_deck, rocks)
+        # The round function now returns the updated rocks amount or None if player quits
+        new_rocks = play_blackjack_round(current_deck, rocks)
+        
+        # Check if player chose to quit
+        if new_rocks is None:
+            print(f"\nThanks for playing! You finished with {rocks} Rocks.")
+            return
+            
+        rocks = new_rocks
 
         # Ask to play again
         while True:
             play_again = input("Play again? (y/n): ").lower()
+            
+            # Check if player wants to quit
+            if play_again in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return  # Exit the game
+                else:
+                    continue  # Let the player choose again
+                    
             if play_again in ('y', 'n'):
                 break
             else:

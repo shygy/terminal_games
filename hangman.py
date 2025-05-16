@@ -185,6 +185,23 @@ def play_infinite_guesses(word, word_array, letters_not_in_word):
 
     return False
 
+def confirm_quit():
+    """
+    Asks the user to confirm if they want to quit the game.
+    
+    Returns:
+        bool: True if the user confirms quitting, False otherwise
+    """
+    while True:
+        confirm = input("Confirm quit? (y/n): ").lower()
+        if confirm in ['y', 'yes']:
+            print("\nThanks for playing shygyGames! Goodbye!")
+            return True
+        elif confirm in ['n', 'no']:
+            return False
+        else:
+            print("Please enter 'y' or 'n'.")
+
 def play_hangman():
     """
     Main game loop for Hangman.
@@ -202,6 +219,12 @@ def play_hangman():
     while True:
         # Game setup
         difficulty = select_difficulty()
+        if difficulty.lower() in ['quit', 'q', 'exit']:
+            if confirm_quit():
+                return
+            else:
+                continue
+                
         word = random.choice(wordlist)
         max_guesses = get_max_guesses(difficulty, len(word))
         word_array = ['_' for _ in word]
@@ -213,6 +236,14 @@ def play_hangman():
 
         while '_' in word_array and guess_count < max_guesses:
             guess = input(f"Guess {guess_count + 1}: ").lower()
+            
+            if guess in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return
+                else:
+                    # Continue the game
+                    display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
+                    continue
 
             if guess == word:
                 print(f"\nYou won! The word was {word.upper()}. It took you {guess_count + 1} guesses.")
@@ -254,19 +285,70 @@ def play_hangman():
                     continue
             else:
                 print(f"\nThe word was {word.upper()}!")
-                play_again = input("\nPlay again? (y/n): ").lower()
-                if play_again != 'y':
+                while True:
+                    play_again = input("\nPlay again? (y/n): ").lower()
+                    
+                    # Check if player wants to quit
+                    if play_again in ['quit', 'q', 'exit']:
+                        if confirm_quit():
+                            return  # Exit the game
+                        else:
+                            continue  # Let the player choose again
+                    elif play_again in ['y', 'yes']:
+                        break
+                    elif play_again in ['n', 'no']:
+                        return  # Exit the game
+                    else:
+                        print("Invalid input. Please enter 'y' or 'n'.")
+                        
+                if play_again in ['y', 'yes']:
+                    continue  # Start a new game
+                else:
                     break
                 continue
 
         elif '_' not in word_array:
-            play_again = input("\nPlay again? (y/n): ").lower()
-            if play_again != 'y':
+            while True:
+                play_again = input("\nPlay again? (y/n): ").lower()
+                
+                # Check if player wants to quit
+                if play_again in ['quit', 'q', 'exit']:
+                    if confirm_quit():
+                        return  # Exit the game
+                    else:
+                        continue  # Let the player choose again
+                elif play_again in ['y', 'yes']:
+                    break
+                elif play_again in ['n', 'no']:
+                    return  # Exit the game
+                else:
+                    print("Invalid input. Please enter 'y' or 'n'.")
+                    
+            if play_again in ['y', 'yes']:
+                continue  # Start a new game
+            else:
                 break
 
         else: # This condition is added to handle the case where the loop breaks due to a correct word guess
-            play_again = input("\nPlay again? (y/n): ").lower()
-            if play_again != 'y':
+            while True:
+                play_again = input("\nPlay again? (y/n): ").lower()
+                
+                # Check if player wants to quit
+                if play_again in ['quit', 'q', 'exit']:
+                    if confirm_quit():
+                        return  # Exit the game
+                    else:
+                        continue  # Let the player choose again
+                elif play_again in ['y', 'yes']:
+                    break
+                elif play_again in ['n', 'no']:
+                    return  # Exit the game
+                else:
+                    print("Invalid input. Please enter 'y' or 'n'.")
+                    
+            if play_again in ['y', 'yes']:
+                continue  # Start a new game
+            else:
                 break
 
 def hangmanLoop():
