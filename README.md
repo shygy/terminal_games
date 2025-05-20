@@ -78,6 +78,17 @@ Games can now be saved and resumed later:
 - When you have 1 guess remaining, you can choose to:
   - Reveal the word
   - Continue guessing with infinite tries
+ 
+### MasterMind
+- Logic game where you try to guess a secret code of digits (0-9)
+- Choose your code length from 1 to 10 digits (enter 0 for 10 digits)
+- Select game mode: standard (allows repeated digits) or no-repeats (unique digits in code only)
+- After each guess, you'll receive feedback:
+  - How many digits are in the correct position
+  - How many digits are correct but in the wrong position
+- Type 'h' or 'history' at any time to see a list of your previous guesses and results
+- Type 'reveal' to see the secret code if you want to give up
+- Try to crack the code in as few attempts as possible
 
 ### Roulette
 - Classic casino game where you bet on where a ball will land on a spinning wheel
@@ -89,17 +100,6 @@ Games can now be saved and resumed later:
 - Place multiple bets in a single round to increase your chances
 - Use `quick:` commands for faster betting (e.g., `quick:red 50`)
 - Type `his` or `history` to view your spin history and statistics
-
-### MasterMind
-- Logic game where you try to guess a secret code of digits (0-9)
-- Choose your code length from 1 to 10 digits (enter 0 for 10 digits)
-- Select game mode: standard (allows repeated digits) or no-repeats (unique digits in code only)
-- After each guess, you'll receive feedback:
-  - How many digits are in the correct position
-  - How many digits are correct but in the wrong position
-- Type 'h' or 'history' at any time to see a list of your previous guesses and results
-- Type 'reveal' to see the secret code if you want to give up
-- Try to crack the code in as few attempts as possible
 
 ### Blackjack
 - Classic card game where you aim to get as close to 21 as possible without going over
