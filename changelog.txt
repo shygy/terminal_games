@@ -1,55 +1,148 @@
+shygyGames - The Terminal Collection v.1.25 - 2025-05-19
+----------------------------------------------------------------------------
+- Added cross-game currency system with shared Rocks between all games
+- Implemented game statistics tracking with detailed history
+- Added save & resume functionality with options to save or quit without saving
+- Added "reset" command to wipe all saved data
+- Implemented roulette spin history with "his" or "history" command
+- Added cheat codes for fun hidden features (debug mode, rainbow text, etc.)
+- Enhanced processCommand with better error checking for all user inputs
+- Added "rocks" or "balance" command to check current rock balance from any game
+==========================================
+shygyGames - The Terminal Collection v.1.24 - 2025-05-19
+----------------------------------------------------------------------------
+- Added Quality of Life improvements across all games
+- Added color-coded text output (red for losses, green for wins)
+- Color output can be toggled with "color:switch" command
+- Added win streak tracking with rewards for consecutive wins
+- Added "help" command system for in-game assistance
+- Added quick betting presets in Roulette with "quick:" commands
+- Added utils_terminal.py module for shared functionality
+==========================================
+shygyGames - The Terminal Collection v.1.23 - 2025-05-19
+----------------------------------------------------------------------------
+- Added Roulette game with comprehensive betting options
+- Features multiple bet types: Straight Up, Split, Street, Corner, Red/Black, Odd/Even, High/Low
+- Realistic wheel spinning simulation with appropriate payouts
+- Interactive table visualization and game flow
+- Updated game order (Roulette #5, Blackjack #6)
+- Updated all documentation with Roulette game rules
+==========================================
+shygyGames - The Terminal Collection v.1.22 - 2025-05-19
+----------------------------------------------------------------------------
+- Added guess history tracking feature to MasterMind game
+- Players can now type 'h' or 'history' to view previous guesses and results
+- Updated game menu order (MasterMind now #4, Blackjack #5)
+- Updated README and game instructions to document history feature
+- Improved MasterMind game rules display with better command organization
+- Allowed repeated digits in player guesses regardless of game mode
+==========================================
+shygyGames - The Terminal Collection v.1.21 - 2025-05-19
+----------------------------------------------------------------------------
+- Fixed "quit" functionality in Hangman game's difficulty selection screen
+- Enhanced quit support in infinite guesses mode
+- Improved user experience with consistent quit behavior across all games
+- Added more detailed quit instructions in game interfaces
+==========================================
+shygyGames - The Terminal Collection v.1.20 - 2025-05-19
+----------------------------------------------------------------------------
+- Official release of MasterMind (Code Breaker) game with all features
+- Improved error handling in all games
+- Fixed potential game navigation issues
+- Enhanced universal quit functionality across all games
+==========================================
+shygyGames - The Terminal Collection v.1.19 - 2025-05-19
+----------------------------------------------------------------------------
+- Added MasterMind (Code Breaker) game with variable code length selection
+- Players can select code length from 1-10 digits (enter 0 for 10 digits)
+- Implemented both standard mode and no-repeats mode for different difficulty
+==========================================
+shygyGames - The Terminal Collection v.1.18 - 2025-05-17
+----------------------------------------------------------------------------
+Developer build with utils folder included (DevBuild)
+==========================================
+shygyGames - The Terminal Collection v.1.17 - 2025-05-17
+----------------------------------------------------------------------------
+Fixed README files and enhanced universal quit functionality
+==========================================
+shygyGames - The Terminal Collection v.1.17 - 2025-05-17
+----------------------------------------------------------------------------
+- Fixed README files to display correct version information
+- Added standard README.md for GitHub compatibility
+- Enhanced universal "quit" functionality in all terminal games
+==========================================
+
+shygyGames - The Terminal Collection v.1.16 - 2025-05-17
+----------------------------------------------------------------------------
+- Added --dev flag to terminal_games_exporter.py to include utils folder in exports
+- Enhanced universal "quit" functionality in all terminal games
+- Fixed formatting consistency in changelog.txt
+==========================================
+
+shygyGames - The Terminal Collection v.1.15 - 2025-05-16
+----------------------------------------------------------------------------
+- Condensing changes and updating .gitignore
+- Added universal "quit" function to all terminal games
+==========================================
+
 shygyGames - The Terminal Collection v.1.14 - 2025-05-16
 ----------------------------------------------------------------------------
-Formalizing
+- Formalizing README and changelog
 ==========================================
-==========================================
+
 shygyGames - The Terminal Collection v.1.13 - 2025-05-16
 ----------------------------------------------------------------------------
-Updated readme and added .gitignore files
+- Updated readme and added .gitignore files
 ==========================================
-Added universal
+
 shygyGames - The Terminal Collection v.1.10 - 2025-05-16
 ----------------------------------------------------------------------------
-Updated README and changelog for better user experience
+- Updated README and changelog for better user experience
 ==========================================
+
 shygyGames - The Terminal Collection v.1.5 - 2025-05-16
 ----------------------------------------------------------------------------
-Added changelog feature to track version history
+- Added changelog feature to track version history
 ==========================================
+
 shygyGames - The Terminal Collection v.1.4 - 2025-05-15
 ----------------------------------------------------------------------------
-Updated file structure and error handling improvements
+- Updated file structure and error handling improvements
 - Updated README to reflect actual file structure
 - Added improved error handling for game inputs
 - Enhanced Blackjack with better betting logic
 - Created a cleaner game startup experience
 - Fixed various minor bugs
 ==========================================
+
 shygyGames - The Terminal Collection v.1.3 - 2025-05-15
 ----------------------------------------------------------------------------
-Documentation and error handling enhancements
+- Documentation and error handling enhancements
 - Added proper documentation for all game functions
 - Fixed import errors in the game selector
 - Improved error messages across all games
 - Enhanced startup scripts for Windows and Unix
 ==========================================
+
 shygyGames - The Terminal Collection v.1.2 - 2025-05-15
 ----------------------------------------------------------------------------
-Game mechanics and input handling fixes
+- Game mechanics and input handling fixes
 - Fixed Blackjack betting and payout logic
 - Added better error handling for invalid inputs
 - Updated game selector with improved navigation
 ==========================================
+
 shygyGames - The Terminal Collection v.1.1 - 2025-05-15
 ----------------------------------------------------------------------------
-Advanced features and bug fixes
+- Advanced features and bug fixes
 - Added Blackjack advanced features (split, double down, insurance)
 - Fixed bug in Hangman infinite guesses mode
 - Improved terminal clearing for better compatibility
 ==========================================
+
 shygyGames - The Terminal Collection v.1.0 - 2025-05-15
 ----------------------------------------------------------------------------
-Initial release
+- Initial release
 - Includes Higher or Lower, Rock Paper Scissors, Hangman, and Blackjack
 - Launcher script and game selector menu
 - Windows and Unix startup scripts
