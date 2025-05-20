@@ -90,13 +90,6 @@ Games can now be saved and resumed later:
 - Use `quick:` commands for faster betting (e.g., `quick:red 50`)
 - Type `his` or `history` to view your spin history and statistics
 
-### Blackjack
-- Classic card game where you aim to get as close to 21 as possible without going over
-- Place bets with your Rocks (a very valuable currency)
-- You start with 100 Rocks
-- Blackjack (an Ace and a 10-value card) pays 3:2
-- Win by beating the dealer's hand without busting
-
 ### MasterMind
 - Logic game where you try to guess a secret code of digits (0-9)
 - Choose your code length from 1 to 10 digits (enter 0 for 10 digits)
@@ -107,6 +100,13 @@ Games can now be saved and resumed later:
 - Type 'h' or 'history' at any time to see a list of your previous guesses and results
 - Type 'reveal' to see the secret code if you want to give up
 - Try to crack the code in as few attempts as possible
+
+### Blackjack
+- Classic card game where you aim to get as close to 21 as possible without going over
+- Place bets with your Rocks (a very valuable currency)
+- You start with 100 Rocks
+- Blackjack (an Ace and a 10-value card) pays 3:2
+- Win by beating the dealer's hand without busting
 
 ## Requirements
 
