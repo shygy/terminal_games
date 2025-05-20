@@ -16,6 +16,7 @@ import time  # Moved import here
 
 # Import the wordlist from separate file
 from wordlist import wordlist
+from utils_terminal import processCommand, colorText
 
 def select_difficulty():
     """
@@ -28,14 +29,18 @@ def select_difficulty():
         str: The selected difficulty level ('1', '2', '3', or 'debug')
              '1' = Easy, '2' = Medium, '3' = Hard
              'debug' is a special mode for testing (hidden option)
+             'quit' is returned if the player wants to exit
     """
     while True:
         print("\nSelect difficulty:")
         print("1. Easy (26 guesses)")
         print("2. Medium (word length + 15 guesses)")
         print("3. Hard (word length + 5 guesses)")
+        print("Type 'quit' to exit the game")
         choice = input("Choose difficulty (1-3): ")
 
+        if choice.lower() in ['quit', 'q', 'exit']:
+            return 'quit'
         if choice == 'D99':  # Debug mode for testing
             return 'debug'
         if choice in ['1', '2', '3']:
@@ -105,7 +110,9 @@ def handle_letter_guess(guess, word, word_array, letters_not_in_word):
                                     and are not in the word
 
     Returns:
-        bool: True if this was a new guess, False if the letter was already guessed
+        tuple or bool: 
+            If this was a new guess: (bool found, int char_count)
+            If the letter was already guessed: False
 
     Side Effects:
         - Updates word_array in place if the guess is correct
@@ -130,7 +137,8 @@ def handle_letter_guess(guess, word, word_array, letters_not_in_word):
         letters_not_in_word.append(guess)
         print(f"{guess.upper()} is not in the word.")
 
-    return True
+    # Return a tuple with information about whether the letter was found and how many occurrences
+    return (found, char_count)
 
 def play_infinite_guesses(word, word_array, letters_not_in_word):
     """
@@ -146,7 +154,7 @@ def play_infinite_guesses(word, word_array, letters_not_in_word):
         letters_not_in_word (list): Letters that have been guessed and are not in the word
 
     Returns:
-        None: This function runs until the word is completely guessed
+        bool: True if the player won the game, False if the player quit
 
     Side Effects:
         - Updates word_array in place as correct guesses are made
@@ -156,7 +164,23 @@ def play_infinite_guesses(word, word_array, letters_not_in_word):
     guess_count = 1
     while '_' in word_array:
         display_game_state(word_array, letters_not_in_word)
-        guess = input(f"Guess {guess_count}: ").lower()
+        guess = input(colorText(f"Guess {guess_count}: ", "magenta")).lower()
+        
+        # Process universal commands (his, history, stats, help, etc.)
+        handled, result = processCommand(guess, "hangman")
+        if handled:
+            # Don't count universal commands as guesses
+            display_game_state(word_array, letters_not_in_word)
+            continue
+        
+        # Check if player wants to quit
+        if guess in ['quit', 'q', 'exit']:
+            if confirm_quit():
+                return False
+            else:
+                # Continue the game
+                display_game_state(word_array, letters_not_in_word)
+                continue
 
         if guess == word:
             print(f"\nYou won! The word was {word.upper()}! It took you {guess_count} guesses!")
@@ -176,14 +200,17 @@ def play_infinite_guesses(word, word_array, letters_not_in_word):
             print("Please guess a single letter or the complete word!")
             continue
 
-        if handle_letter_guess(guess, word, word_array, letters_not_in_word):
+        # Handle the letter guess
+        result = handle_letter_guess(guess, word, word_array, letters_not_in_word)
+        
+        if result:  # If it was a valid new guess
             guess_count += 1
 
         if '_' not in word_array:
             print(f"\nYou won! The word was {word.upper()}! It took you {guess_count} guesses!")
             return True
 
-    return False
+    return True
 
 def confirm_quit():
     """
@@ -219,7 +246,7 @@ def play_hangman():
     while True:
         # Game setup
         difficulty = select_difficulty()
-        if difficulty.lower() in ['quit', 'q', 'exit']:
+        if difficulty == 'quit':
             if confirm_quit():
                 return
             else:
@@ -235,7 +262,14 @@ def play_hangman():
         display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
 
         while '_' in word_array and guess_count < max_guesses:
-            guess = input(f"Guess {guess_count + 1}: ").lower()
+            guess = input(colorText(f"Guess {guess_count + 1}: ", "magenta")).lower()
+            
+            # Process universal commands (his, history, stats, help, etc.)
+            handled, result = processCommand(guess, "hangman")
+            if handled:
+                # Don't count universal commands as guesses
+                display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
+                continue
             
             if guess in ['quit', 'q', 'exit']:
                 if confirm_quit():
@@ -267,18 +301,41 @@ def play_hangman():
                 print("Please enter a letter")
                 continue
 
-            if handle_letter_guess(guess, word, word_array, letters_not_in_word):
-                guess_count += 1
+            # Check if this was the last guess
+            last_guess = (guess_count == max_guesses - 1)
+            
+            # Handle the letter guess
+            result = handle_letter_guess(guess, word, word_array, letters_not_in_word)
+            
+            if result:  # If it was a valid new guess
+                found, char_count = result  # Unpack the tuple
+                
+                # Give back a guess if they only had 1 guess left and got a letter correct
+                if last_guess and found:
+                    print(colorText("Great guess! You've earned an extra attempt!", "green"))
+                    # Don't increment guess count, effectively giving them an extra guess
+                else:
+                    guess_count += 1
+                
                 display_game_state(word_array, letters_not_in_word, max_guesses - guess_count)
             else:
+                # It was a repeat guess
                 display_game_state(word_array, letters_not_in_word, max_guesses - guess_count) # Still display even if it was a repeat guess
 
         # Handle game end conditions
         if '_' in word_array and guess_count >= max_guesses:
             reveal_choice = input("\nOut of guesses! Would you like to keep guessing (y) or see the word (n)? ").lower()
-            if reveal_choice == 'y':
+            if reveal_choice in ['quit', 'q', 'exit']:
+                if confirm_quit():
+                    return
+                else:
+                    continue
+            elif reveal_choice == 'y':
                 print("\nContinuing with infinite guesses...\n")
-                if play_infinite_guesses(word, word_array, letters_not_in_word):
+                result = play_infinite_guesses(word, word_array, letters_not_in_word)
+                if result is False:  # Player quit during infinite guesses
+                    return
+                else:  # Player won in infinite guesses mode
                     play_again = input("\nPlay again? (y/n): ").lower()
                     if play_again != 'y':
                         break

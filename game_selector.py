@@ -11,14 +11,22 @@ import time
 from highOrLow import play_highOrLow
 from rpsBasic import play_rps
 from hangman import hangmanLoop
+from masterMind import mastermindLoop
+from roulette import rouletteLoop
 from blackJack import mainBlackjack
 
-def clear_screen():
+def clearScreen():
     """
     Clear the terminal screen based on the operating system.
     
+    This function detects the operating system and uses the appropriate
+    command to clear the terminal screen for a better user experience.
+    
     Returns:
         None
+    
+    Examples:
+        >>> clearScreen()  # Screen will be cleared
     """
     # Check the operating system and use appropriate command
     if os.name == 'nt':  # For Windows
@@ -26,14 +34,20 @@ def clear_screen():
     else:  # For Unix/Linux/MacOS
         os.system('clear')
 
-def display_header():
+def displayHeader():
     """
     Display a decorative header for the game menu.
     
+    This function prints a formatted header including the collection name,
+    welcome message, and instructions for the game selector menu.
+    
     Returns:
         None
+    
+    Examples:
+        >>> displayHeader()  # Displays the header with welcome message
     """
-    clear_screen()
+    clearScreen()
     print("="*60)
     print("                    shygyGames Collection")
     print("="*60)
@@ -52,20 +66,22 @@ def main():
         None
     """
     while True:
-        display_header()
+        displayHeader()
         
         # Display game menu
         print("\nAvailable Games:")
         print("  1. Higher or Lower - Guess the correct number")
         print("  2. Rock Paper Scissors - Classic hand game")
         print("  3. Hangman - Word guessing challenge")
-        print("  4. Blackjack - Card game with betting")
-        print("  5. Exit\n")
+        print("  4. MasterMind - Code breaking puzzle")
+        print("  5. Roulette - Wheel of fortune with betting options")
+        print("  6. Blackjack - Card game with betting")
+        print("  7. Exit\n")
         
         # Get user choice with input validation
         while True:
             try:
-                choice = input("Select a game (1-5) or type 'quit' to exit: ")
+                choice = input("Select a game (1-6) or type 'quit' to exit: ")
                 
                 # Check if user wants to quit
                 if choice.lower() in ['quit', 'q', 'exit']:
@@ -73,10 +89,10 @@ def main():
                     time.sleep(1)
                     sys.exit(0)
                     
-                if choice in ['1', '2', '3', '4', '5']:
+                if choice in ['1', '2', '3', '4', '5', '6', '7']:
                     break
                 else:
-                    print("Invalid choice. Please enter a number between 1 and 5.")
+                    print("Invalid choice. Please enter a number between 1 and 7.")
             except KeyboardInterrupt:
                 print("\nGame selection interrupted. Exiting...")
                 sys.exit(0)
@@ -104,11 +120,23 @@ def main():
                 input("Press Enter to return to the main menu...")
         elif choice == '4':
             try:
+                mastermindLoop()
+            except Exception as e:
+                print(f"An error occurred while playing Mastermind: {str(e)}")
+                input("Press Enter to return to the main menu...")
+        elif choice == '5':
+            try:
+                rouletteLoop()
+            except Exception as e:
+                print(f"An error occurred while playing Roulette: {str(e)}")
+                input("Press Enter to return to the main menu...")
+        elif choice == '6':
+            try:
                 mainBlackjack()
             except Exception as e:
                 print(f"An error occurred while playing Blackjack: {str(e)}")
                 input("Press Enter to return to the main menu...")
-        elif choice == '5':
+        elif choice == '7':
             print("Thanks for playing shygyGames! Goodbye!")
             # Add a small delay before exiting
             time.sleep(1)
