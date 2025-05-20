@@ -58,16 +58,7 @@ All games use simple keyboard input:
 - When you have 1 guess remaining, you can choose to:
   - Reveal the word
   - Continue guessing with infinite tries
-
-### Roulette
-- Classic casino game where you bet on where a ball will land on a spinning wheel
-- Place bets with your Rocks on various outcomes with different payouts
-- You start with 100 Rocks
-- Multiple betting options available:
-  - Inside Bets (higher payouts): Straight Up (35:1), Split (17:1), Street (11:1), Corner (8:1)
-  - Outside Bets (1:1 payouts): Red/Black, Odd/Even, High/Low
-- Place multiple bets in a single round to increase your chances
-
+ 
 ### MasterMind
 - Logic game where you try to guess a secret code of digits (0-9)
 - Choose your code length from 1 to 10 digits (enter 0 for 10 digits)
@@ -78,6 +69,15 @@ All games use simple keyboard input:
 - Type 'h' or 'history' at any time to see a list of your previous guesses and results
 - Type 'reveal' to see the secret code if you want to give up
 - Try to crack the code in as few attempts as possible
+
+### Roulette
+- Classic casino game where you bet on where a ball will land on a spinning wheel
+- Place bets with your Rocks on various outcomes with different payouts
+- You start with 100 Rocks
+- Multiple betting options available:
+  - Inside Bets (higher payouts): Straight Up (35:1), Split (17:1), Street (11:1), Corner (8:1)
+  - Outside Bets (1:1 payouts): Red/Black, Odd/Even, High/Low
+- Place multiple bets in a single round to increase your chances
 
 ### Blackjack
 - Classic card game where you aim to get as close to 21 as possible without going over
